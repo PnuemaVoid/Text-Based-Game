@@ -1,0 +1,124 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/crt_material.tres" type="Material" id=1]
+[ext_resource path="res://Assets/Acme-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scripts/text.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 28
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "idle"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 584, 32 ), Vector2( 512, 32 ), Vector2( 584, 32 ), Vector2( 664, 32 ), Vector2( 584, 32 ) ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 25
+font_data = ExtResource( 2 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 296.0
+margin_top = 56.0
+margin_right = 984.0
+margin_bottom = 760.0
+color = Color( 0.231373, 0.258824, 0.321569, 1 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+margin_left = 56.0
+margin_top = 104.0
+margin_right = 632.0
+margin_bottom = 624.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+
+[node name="Location" type="RichTextLabel" parent="."]
+margin_left = 584.0
+margin_top = 32.0
+margin_right = 688.0
+margin_bottom = 80.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "Location"
+text = "Location"
+fit_content_height = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Location"]
+autoplay = "idle"
+playback_speed = 0.6
+anims/idle = SubResource( 3 )
+
+[node name="LineEdit" type="LineEdit" parent="."]
+margin_left = 416.0
+margin_top = 696.0
+margin_right = 864.0
+margin_bottom = 760.0
+custom_fonts/font = SubResource( 4 )
+placeholder_text = "Enter Commands Here"
+caret_blink = true
+caret_blink_speed = 0.3
+
+[node name="Commands" type="ColorRect" parent="."]
+margin_left = 480.0
+margin_top = 80.0
+margin_right = 800.0
+margin_bottom = 128.0
+color = Color( 0.427805, 0.437889, 0.460938, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Commandslabel" type="Label" parent="Commands"]
+margin_left = 64.0
+margin_right = 248.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 5 )
+text = "Look   Go to   Check"
+align = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource( 1 )
+margin_top = -56.0
+margin_right = 1288.0
+margin_bottom = 856.0
+mouse_filter = 2
+mouse_default_cursor_shape = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="text_changed" from="LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="text_entered" from="LineEdit" to="." method="_on_LineEdit_text_entered"]
